@@ -85,12 +85,12 @@ def main():
 
                         class_names = ['Kucing', 'Anjing']
                         result = class_names[predicted_class]
-                        st.success(f"Hasil Prediksi 🔎 : {result.capitalize()}")
+                        st.success(f"Hasil Prediksi 🔎 : {result.capitalize()}{predicted_class}{confidence_score}")
 
                         st.session_state.predictions[result.capitalize()] += 1
                         
-                        kucing_confidence = confidence_score[0] * 100
-                        anjing_confidence = confidence_score[1] * 100
+                        kucing_confidence = confidence_score[1] * 100
+                        anjing_confidence = confidence_score[0] * 100
                         st.progress(int(kucing_confidence))
                         st.write(f"Prosentase klasifikasi Kucing: {kucing_confidence:.2f}%")
                         st.progress(int(anjing_confidence))
