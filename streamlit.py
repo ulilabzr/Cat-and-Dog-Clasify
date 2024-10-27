@@ -38,8 +38,10 @@ def main():
     layout="wide"
     )
 
-    st.sidebar.header("Deskripsi")
-    st.sidebar.text("ini adalah deskripsi")
+    st.sidebar.header("🌟 About")
+    st.sidebar.markdown("Selamat datang di aplikasi klasifikasi anjing dan kucing!.\n Aplikasi ini dirancang untuk membantu Anda dalam mengidentifikasi dan mengklasifikasikan gambar anjing dan kucing menggunakan teknologi kecerdasan buatan (AI). \n ")
+    st.sidebar.markdown("\n\nBagaimana Cara Kerja? \n1. Unggah Gambar: Pilih gambar anjing atau kucing dari perangkat Anda.\n\n2. Proses Klasifikasi: Aplikasi akan memproses gambar menggunakan model pembelajaran mendalam (deep learning) yang telah dilatih untuk mengenali fitur khas anjing dan kucing.\n\n3. Lihat Hasil: Setelah pemrosesan selesai, Anda akan melihat hasil prediksi lengkap dengan tingkat kepercayaan untuk setiap kategori.")
+    
 
     st.markdown(
     "<h1 style='text-align: center; color: #FF5733;'>Klasifikasi Anjing dan Kucing</h1>",
