@@ -38,11 +38,29 @@ def main():
     )
 
     st.sidebar.header("🌟 About")
-    st.sidebar.markdown("Selamat datang di aplikasi klasifikasi anjing dan kucing! Aplikasi ini dirancang untuk membantu Anda dalam mengidentifikasi dan mengklasifikasikan gambar anjing dan kucing menggunakan teknologi kecerdasan buatan (AI).")
-    st.sidebar.markdown("\n\nBagaimana Cara Kerja? \n1. Unggah Gambar: Pilih gambar anjing atau kucing dari perangkat Anda.\n\n2. Proses Klasifikasi: Aplikasi akan memproses gambar menggunakan model pembelajaran mendalam (deep learning) yang telah dilatih untuk mengenali fitur khas anjing dan kucing.\n\n3. Lihat Hasil: Setelah pemrosesan selesai, Anda akan melihat hasil prediksi lengkap dengan tingkat kepercayaan untuk setiap kategori.")
+    st.sidebar.markdown(
+        """
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; line-height: 1.6;">
+        Selamat datang di aplikasi klasifikasi anjing dan kucing! Aplikasi ini dirancang untuk membantu Anda dalam mengidentifikasi dan mengklasifikasikan gambar anjing dan kucing menggunakan teknologi kecerdasan buatan (AI).
+        <br><br>
+        <strong>Bagaimana Cara Kerja?</strong>
+        <ol>
+            <li>Unggah Gambar: Pilih gambar anjing atau kucing dari perangkat Anda.</li>
+            <li>Proses Klasifikasi: Aplikasi akan memproses gambar menggunakan model pembelajaran mendalam (deep learning) yang telah dilatih untuk mengenali fitur khas anjing dan kucing.</li>
+            <li>Lihat Hasil: Setelah pemrosesan selesai, Anda akan melihat hasil prediksi lengkap dengan tingkat kepercayaan untuk setiap kategori.</li>
+        </ol>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     st.markdown(
-        "<h1 style='text-align: center; color: #FF5733;'>Klasifikasi Anjing dan Kucing</h1>",
+        """
+        <h1 style='text-align: center; color: #FF5733; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
+            Klasifikasi Anjing dan Kucing
+        </h1>
+        <hr style="border: 1px solid #FF5733; width: 50px; margin: 10px auto 30px auto;">
+        """,
         unsafe_allow_html=True
     )
 
@@ -52,6 +70,29 @@ def main():
         body {
             background-color: #f0f2f5;
             color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .stButton>button {
+            background-color: #FF5733;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            padding: 8px 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .stButton>button:hover {
+            background-color: #e04e2f;
+            color: white;
+        }
+        .feedback-section {
+            background-color: #fff3f0;
+            border: 1px solid #ffb3a7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
         </style>
         """,
@@ -85,35 +126,37 @@ def main():
 
                         class_names = ['Kucing', 'Anjing']
                         result = class_names[predicted_class]
-                        st.success(f"Hasil Prediksi 🔎 : {result.capitalize()}{predicted_class}{confidence_score}")
+            st.success(f"Hasil Prediksi 🔎 : {result.capitalize()}{predicted_class}{confidence_score}")
 
-                        st.session_state.predictions[result.capitalize()] += 1
-                        
-                        kucing_confidence = confidence_score[1] * 100
-                        anjing_confidence = confidence_score[0] * 100
-                        st.progress(int(kucing_confidence))
-                        st.write(f"Prosentase klasifikasi Kucing: {kucing_confidence:.2f}%")
-                        st.progress(int(anjing_confidence))
-                        st.write(f"Prosentase klasifikasi Anjing: {anjing_confidence:.2f}%")
+            st.session_state.predictions[result.capitalize()] += 1
+            
+            kucing_confidence = confidence_score[1] * 100
+            anjing_confidence = confidence_score[0] * 100
+            st.progress(int(kucing_confidence))
+            st.write(f"Prosentase klasifikasi Kucing: {kucing_confidence:.2f}%")
+            st.progress(int(anjing_confidence))
+            st.write(f"Prosentase klasifikasi Anjing: {anjing_confidence:.2f}%")
 
-                        st.header("Jumlah Hasil Prediksi")
-                        st.write(f"😺 Kucing: {st.session_state.predictions['Kucing']}")
-                        st.write(f"🐶 Anjing: {st.session_state.predictions['Anjing']}")
+            st.markdown("### Jumlah Hasil Prediksi")
+            st.markdown(f"😺 **Kucing:** {st.session_state.predictions['Kucing']}")
+            st.markdown(f"🐶 **Anjing:** {st.session_state.predictions['Anjing']}")
 
-                        feedback = st.radio("Apakah klasifikasi ini akurat?", ("Ya", "Tidak"))
-                        if feedback == "Tidak":
-                            user_feedback = st.text_area("Berikan umpan balik atau saran:")
-                            if user_feedback:
-                                st.write("Terima kasih atas umpan balik Anda!")
-                                st.write(f"Umpan balik Anda: {user_feedback}")
+            feedback = st.radio("Apakah klasifikasi ini akurat?", ("Ya", "Tidak"))
+            if feedback == "Tidak":
+                st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
+                user_feedback = st.text_area("Berikan umpan balik atau saran:")
+                if user_feedback:
+                    st.markdown("**Terima kasih atas umpan balik Anda!**")
+                    st.markdown(f"Umpan balik Anda: {user_feedback}")
+                st.markdown('</div>', unsafe_allow_html=True)
 
-                        if st.button("Reset Statistik"):
-                            st.session_state.predictions = {'Kucing': 0, 'Anjing': 0}
-                            st.success("Statistik berhasil direset.")
+            if st.button("Reset Statistik"):
+                st.session_state.predictions = {'Kucing': 0, 'Anjing': 0}
+                st.success("Statistik berhasil direset.")
 
-                        if st.button("Download Gambar"):
-                            image.save(f"gambar_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.png")
-                            st.success("Gambar berhasil diunduh.")
+            if st.button("Download Gambar"):
+                image.save(f"gambar_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.png")
+                st.success("Gambar berhasil diunduh.")
 
         except Exception as err:
             st.error(f"error : {str(err)}")
