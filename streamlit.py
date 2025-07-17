@@ -74,7 +74,7 @@ def main():
             col1, col2 = st.columns([2, 1])
             with col1:
                 image = Image.open(uploader)
-                st.image(image, caption="Gambar yang diunggah", use_column_width=True)
+                st.image(image, caption="Gambar yang diunggah", use_container_width=True)
 
             with col2:
                 if st.button('Classify', use_container_width=True):
